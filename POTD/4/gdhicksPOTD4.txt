@@ -1,0 +1,30 @@
+1. Find the names of the sailors who have reserved a red or green boat. Do not repeat the names of the same sailors.
+
+select sailors.sname
+from reserves
+inner join sailors
+on sailors.sid = reserves.sid
+inner join boats
+on boats.bid = reserves.bid
+where boats.color = "Red" OR boats.color = "Green"
+group by sailors.sname
+
+2. Find the names of the sailors who have reserved a red boat and a blue boat. Do not repeat the names of the same sailors.
+
+select DISTINCT S.sname
+from sailors S, boats B, reserves R, boats B2, reserves R2
+where S.sid = R.sid and r.bid = b.bid and s.sid = r2.sid and r2.bid = b2.bid
+and (b.color = 'Red' AND b2.color = 'Blue')
+
+3. Find the names of the sailors who have reserved all the boats.
+
+select S.sname
+from sailors S
+where not EXISTS
+(select B.bid
+ from boats B
+ where not exists(
+     select R.Bid
+     from reserves R
+     where R.bid = B.bid
+     and R.sid = S.sid))

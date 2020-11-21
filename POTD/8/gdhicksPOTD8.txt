@@ -1,0 +1,14 @@
+POTD8
+Geoff Hicks - gdh8jh
+
+From the information given in class, we are working under the following assumptions:
+
+1. The username is 'admin' and the password is six characters long. 
+
+2. When we submit the form, the query checks to see if the username is admin and if the additional password comparison is true.
+
+Based on this, our first step is to perform a SQL injection attack by entering the following code in the 'username' field: admin' AND password like 'b%'  #. This code enters the username and checks to see if the password starts with b. When entering the information, a successful login is performed which means our password does indeed start with a b. 
+
+After this, the next step it to just continue to brute-force the password. This mainly involves going through each individual letter of the alphabet for each character of the password and adding it to the end of my SQL injection attack code (e.g. 'ba%', 'bac%', etc...), repeating until the SQL code successfully checks. 
+
+After a few more attempts, I finally found that the following code returned a successful login: admin' AND password like 'bana%'. Based on this, I made an assumption that the password was the word 'banana', which ended up being correct.
